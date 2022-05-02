@@ -28,15 +28,14 @@ namespace LibraryMVC.Controllers
         public IActionResult ViewListOfItems()
         {
             var book = _itemService.GetBooks();
-
             return View(book);
         }
         [HttpPost]
-        [Route("Items/AddBook")]
+        [Route("Items/kwe")]
         public IActionResult AddBook(Item item)
         {
             _itemService.AddBook(item);
-            return View(item);
+            return RedirectToAction("Index");
         }
 
         [HttpDelete]

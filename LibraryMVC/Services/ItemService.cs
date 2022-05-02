@@ -6,8 +6,15 @@ namespace LibraryMVC
     public class ItemService : IItemService
     {
 
-        public List<Item> items = new List<Item>();
-
+        public List<Item> items = new List<Item>
+        {
+            new Item
+            {
+                Id = 1,
+                Name = "Diablo",
+                TypeName = "Horror"
+            }
+        };
 
         public Item AddBook(Item item)
         {

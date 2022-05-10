@@ -10,8 +10,7 @@
         public string City { get; set; }
         public string Country { get; set; }
         public int BorrowerId { get; set; }
-
-        public virtual Borrower Borrower { get; set; }
+        public Borrower Borrower { get; set; }
 
     }
 }

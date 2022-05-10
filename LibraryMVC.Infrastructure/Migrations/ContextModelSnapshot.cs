@@ -71,20 +71,23 @@ namespace LibraryMVC.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("ParentLastName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("BookId");
+                    b.Property<string>("ParentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Borrowers");
                 });
@@ -448,17 +451,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.Navigation("Borrower");
                 });
 
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Borrower", b =>
-                {
-                    b.HasOne("LibraryMVC.Domain.Model.Item", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
             modelBuilder.Entity("LibraryMVC.Domain.Model.BorrowerContactInformation", b =>
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
@@ -473,7 +465,7 @@ namespace LibraryMVC.Infrastructure.Migrations
             modelBuilder.Entity("LibraryMVC.Domain.Model.ContactDetail", b =>
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
-                        .WithMany("ContactDetails")
+                        .WithMany()
                         .HasForeignKey("BorrowerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -574,10 +566,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 {
                     b.Navigation("Addresses");
 
-                    b.Navigation("BorrowerContactInformation")
-                        .IsRequired();
-
-                    b.Navigation("ContactDetails");
+                    b.Navigation("BorrowerContactInformation");
                 });
 
             modelBuilder.Entity("LibraryMVC.Domain.Model.Item", b =>

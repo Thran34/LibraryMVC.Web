@@ -1,4 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using LibraryMVC;
+using LibraryMVC.Application;
+using LibraryMVC.Application.ViewModel.Borrower;
 using LibraryMVC.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +13,19 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
+
+builder.Services.AddTransient<IValidator<NewBorrowerVm>, NewBorrowerValidation>();
+builder.Services.AddTransient<IItemService, ItemService>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<Context>();
-builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<IItemService, ItemService>();
+
+builder.Services.AddControllersWithViews().AddFluentValidation();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

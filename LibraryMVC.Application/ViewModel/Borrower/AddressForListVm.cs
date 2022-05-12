@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using LibraryMVC.Application.Interfaces.Mapping;
 
 namespace LibraryMVC.Application.ViewModel.Borrower
 {
-    public class AddressForListVm
+    public class AddressForListVm : IMapFrom<LibraryMVC.Domain.Model.Borrower>
     {
         public int Id { get; set; }
         public string Country { get; set; }
@@ -11,8 +12,11 @@ namespace LibraryMVC.Application.ViewModel.Borrower
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<LibraryMVC.Domain.Model.Borrower, AddressForListVm>();
-        }
+            profile.CreateMap<LibraryMVC.Domain.Model.Borrower, AddressForListVm>()
+            .ForMember(a => a.Country, opt => opt.MapFrom(b => b.Addresses))
+            .ForMember(a => a.City, opt => opt.MapFrom(b => b.Addresses))
+            .ForMember(a => a.Street, opt => opt.MapFrom(b => b.Addresses));
 
+        }
     }
 }

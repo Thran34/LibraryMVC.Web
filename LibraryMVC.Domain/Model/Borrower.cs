@@ -9,7 +9,7 @@
         public string? ParentLastName { get; set; }
         public bool IsActive { get; set; } = true;
         public BorrowerContactInformation? BorrowerContactInformation { get; set; }
-        public ICollection<Address>? Addresses { get; set; }
+        public ICollection<Address> Addresses { get; set; }
 
 
 

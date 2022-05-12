@@ -16,7 +16,12 @@ namespace LibraryMVC.Application.ViewModel.Borrower
                 .ForMember(s => s.FirstLineOfContactInformation, opt => opt.MapFrom
                 (d => d.BorrowerContactInformation.FirstName + " " +
                 d.BorrowerContactInformation.LastName))
-                .ForMember(s => s.Addresses, opt => opt.AllowNull());
+                .ForMember(s => s.Addresses, opt => opt.MapFrom(d => d.Addresses.ToList()));
+
+
+
+
+
         }
     }
 }

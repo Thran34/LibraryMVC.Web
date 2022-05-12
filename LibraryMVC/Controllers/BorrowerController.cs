@@ -70,10 +70,10 @@ namespace LibraryMVC.Controllers
         {
             return View();
         }
-
-        public IActionResult ViewBorrower(int borrowerId)
+        [HttpGet]
+        public IActionResult ViewBorrower(int id)
         {
-            var borrowerModel = _borService.GetBorrowerDetails(borrowerId);
+            var borrowerModel = _borService.GetBorrowerDetails(id);
             return View(borrowerModel);
         }
 

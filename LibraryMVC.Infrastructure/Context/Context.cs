@@ -24,6 +24,8 @@ namespace LibraryMVC.Infrastructure
             base.OnModelCreating(builder);
 
 
+
+
             builder.Entity<Borrower>()
                 .HasOne(a => a.BorrowerContactInformation).WithOne(b => b.Borrower)
                 .HasForeignKey<BorrowerContactInformation>(e => e.BorrowerRef);

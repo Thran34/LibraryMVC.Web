@@ -1,5 +1,6 @@
 ﻿using LibraryMVC.Domain.Interfaces;
 using LibraryMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryMVC.Infrastructure.Repositories
 {
@@ -27,7 +28,7 @@ namespace LibraryMVC.Infrastructure.Repositories
 
         public Borrower GetBorrower(int borrowerId)
         {
-            return _context.Borrowers.FirstOrDefault(p => p.Id == borrowerId);
+            return _context.Borrowers.Include(x => x.Addresses).FirstOrDefault(p => p.Id == borrowerId);
         }
 
         public void UpdateBorrower(Borrower borrower)

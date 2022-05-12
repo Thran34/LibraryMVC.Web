@@ -54,33 +54,37 @@ namespace LibraryMVC.Application.Services
 
         public BorrowerDetailsVm GetBorrowerDetails(int borrowerId)
         {
-
             var borrower = _borrowerRepo.GetBorrower(borrowerId);
-            var borrowerVm = _mapper.Map<BorrowerDetailsVm>(borrower);
-            /*
-           var borrowerVm = new BorrowerDetailsVm();
-           borrowerVm.Id = borrower.Id;
-           borrower.Name = borrower.Name;
-           borrower.LastName = borrower.LastName;
-           borrowerVm.ParentFullName = borrower.ParentName + " " + borrower.ParentLastName;
-           var borConInfo = borrower.BorrowerContactInformation;
-           borrowerVm.FirstLineOfContactInformation = borConInfo.FirstName + " " + borConInfo.LastName;
-           */
+            var borrowerVm = new BorrowerDetailsVm();
+            borrowerVm.Id = borrower.Id;
+            borrower.Name = borrower.Name;
+            borrower.LastName = borrower.LastName;
+            borrowerVm.ParentFullName = borrower.ParentName + " " + borrower.ParentLastName;
+
             borrowerVm.Addresses = new List<AddressForListVm>();
+
             foreach (var address in borrower.Addresses)
             {
                 var add = new AddressForListVm()
                 {
                     Id = address.Id,
-                    Country = address.Country,
                     City = address.City,
+                    Country = address.Country,
                     Street = address.Street,
-
                 };
                 borrowerVm.Addresses.Add(add);
             }
             return borrowerVm;
         }
+        /*
+        public AddressForListVm GetBorrowerAddress(int borrowerId)
+        {
+            var borrower = _borrowerRepo.GetBorrower(borrowerId);
+            var addressVm = new AddressForListVm();
+            addressVm.Id = borrower.Id;
+            addressVm.City = borrower.
+            return addressVm;
+        }*/
         public int AddBorrower(NewBorrowerVm borrower)
         {
             var borr = _mapper.Map<Borrower>(borrower);

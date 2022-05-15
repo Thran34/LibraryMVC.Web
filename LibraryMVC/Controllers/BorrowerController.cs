@@ -1,10 +1,16 @@
 ﻿using LibraryMVC.Application.Interfaces;
 using LibraryMVC.Application.ViewModel.Borrower;
-using LibraryMVC.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMVC.Controllers
 {
+    /*
+     uzupełnić listę detali
+     stworzyć model, kontroler oraz serwis i repo dla ksiązek
+     utworzyc zależności między ksiązkami i pożyczającymi 
+       (kto jaka ksiązka, ile czasu pozostało czy po terminie, kary za przedłużenie )
+     stworzyć ładny layout
+     */
     public class BorrowerController : Controller
     {
         private readonly IBorrowerService _borService;
@@ -44,11 +50,22 @@ namespace LibraryMVC.Controllers
             var borrower = _borService.GetBorrowerForEdit(id);
             return View(borrower);
         }
-
+        [HttpPost]
+        public IActionResult EditAddress(NewAddresVm model)
+        {
+            _borService.UpdateAddress(model);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult EditAddress(int id)
+        {
+            var address = _borService.GetAddressForEdit(id);
+            return View(address);
+        }
         [HttpPost]
         public IActionResult AddBorrower(NewBorrowerVm model)
         {
-            var id = _borService.AddBorrower(model);
+            _borService.AddBorrower(model);
             return RedirectToAction("Index");
         }
 
@@ -59,16 +76,17 @@ namespace LibraryMVC.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult AddNewAddressForBorrower(int borrowerId)
+        [HttpPost]
+        public IActionResult AddNewAddressForBorrower(NewAddresVm model)
         {
-            return View();
+            _borService.AddAddress(model);
+            return RedirectToAction("index");
         }
 
-        [HttpPost]
-        public IActionResult AddNewAddressForBorrower(Address model)
+        [HttpGet]
+        public IActionResult AddNewAddressForBorrower()
         {
-            return View();
+            return View(new NewAddresVm());
         }
         [HttpGet]
         public IActionResult ViewBorrower(int id)

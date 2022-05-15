@@ -30,30 +30,32 @@ namespace LibraryMVC.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BorrowerId")
+                    b.Property<int?>("BorrowerId")
                         .HasColumnType("int");
 
                     b.Property<string>("BuildingNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FlatNumber")
+                    b.Property<int?>("FlatNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TelNumber")
+                        .HasColumnType("int");
+
                     b.Property<string>("ZipCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -100,25 +102,22 @@ namespace LibraryMVC.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BorrowerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BorrowerRef")
                         .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BorrowerRef")
-                        .IsUnique();
+                    b.HasIndex("BorrowerId");
 
                     b.ToTable("BorrowerContactInformations");
                 });
@@ -444,9 +443,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
                         .WithMany("Addresses")
-                        .HasForeignKey("BorrowerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BorrowerId");
 
                     b.Navigation("Borrower");
                 });
@@ -454,8 +451,8 @@ namespace LibraryMVC.Infrastructure.Migrations
             modelBuilder.Entity("LibraryMVC.Domain.Model.BorrowerContactInformation", b =>
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
-                        .WithOne("BorrowerContactInformation")
-                        .HasForeignKey("LibraryMVC.Domain.Model.BorrowerContactInformation", "BorrowerRef")
+                        .WithMany("BorrowerContactInformation")
+                        .HasForeignKey("BorrowerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

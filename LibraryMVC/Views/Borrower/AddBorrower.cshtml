@@ -4,14 +4,13 @@
     ViewData["Title"] = "AddBorrower";
 }
 
-<h1>AddBorrower</h1>
-
-<h4>NewBorrowerVm</h4>
+<h1>Add Borrower</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddBorrower">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type ="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -23,7 +22,16 @@
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-            
+            <div class="form-group">
+                <label asp-for="ParentName" class="control-label"></label>
+                <input asp-for="ParentName" class="form-control" />
+                <span asp-validation-for="ParentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentLastName" class="control-label"></label>
+                <input asp-for="ParentLastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -216,13 +216,15 @@ namespace LibraryMVC.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FlatNumber = table.Column<int>(type: "int", nullable: false),
-                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BorrowerId = table.Column<int>(type: "int", nullable: false)
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FlatNumber = table.Column<int>(type: "int", nullable: true),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BorrowerId = table.Column<int>(type: "int", nullable: true),
+                    TelNumber = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,8 +233,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                         name: "FK_Addresses_Borrowers_BorrowerId",
                         column: x => x.BorrowerId,
                         principalTable: "Borrowers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -241,17 +242,17 @@ namespace LibraryMVC.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BorrowerRef = table.Column<int>(type: "int", nullable: false)
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BorrowerRef = table.Column<int>(type: "int", nullable: false),
+                    BorrowerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BorrowerContactInformations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BorrowerContactInformations_Borrowers_BorrowerRef",
-                        column: x => x.BorrowerRef,
+                        name: "FK_BorrowerContactInformations_Borrowers_BorrowerId",
+                        column: x => x.BorrowerId,
                         principalTable: "Borrowers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -373,10 +374,9 @@ namespace LibraryMVC.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BorrowerContactInformations_BorrowerRef",
+                name: "IX_BorrowerContactInformations_BorrowerId",
                 table: "BorrowerContactInformations",
-                column: "BorrowerRef",
-                unique: true);
+                column: "BorrowerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ContactDetails_BorrowerId",

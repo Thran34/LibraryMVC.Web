@@ -57,12 +57,8 @@ namespace LibraryMVC.Application.Services
             var borrower = _borrowerRepo.GetBorrower(borrowerId);
             var borrowerVm = new BorrowerDetailsVm();
             borrowerVm.Id = borrower.Id;
-            borrower.Name = borrower.Name;
-            borrower.LastName = borrower.LastName;
             borrowerVm.ParentFullName = borrower.ParentName + " " + borrower.ParentLastName;
-
             borrowerVm.Addresses = new List<AddressForListVm>();
-
             foreach (var address in borrower.Addresses)
             {
                 var add = new AddressForListVm()
@@ -71,9 +67,14 @@ namespace LibraryMVC.Application.Services
                     City = address.City,
                     Country = address.Country,
                     Street = address.Street,
+                    TelNumber = address.TelNumber,
+                    Email = address.Email,
+
                 };
                 borrowerVm.Addresses.Add(add);
             }
+
+
             return borrowerVm;
         }
         /*
@@ -89,6 +90,12 @@ namespace LibraryMVC.Application.Services
         {
             var borr = _mapper.Map<Borrower>(borrower);
             var id = _borrowerRepo.AddBorrower(borr);
+            return id;
+        }
+        public int AddAddress(NewAddresVm address)
+        {
+            var addr = _mapper.Map<Address>(address);
+            var id = _borrowerRepo.AddAddress(addr);
             return id;
         }
 
@@ -107,6 +114,18 @@ namespace LibraryMVC.Application.Services
         {
             var borrower = _mapper.Map<Borrower>(model);
             _borrowerRepo.UpdateBorrower(borrower);
+        }
+        public NewAddresVm GetAddressForEdit(int id)
+        {
+
+            var address = _borrowerRepo.GetAddress(id);
+            var addressVm = _mapper.Map<NewAddresVm>(address);
+            return addressVm;
+        }
+        public void UpdateAddress(NewAddresVm model)
+        {
+            var address = _mapper.Map<Address>(model);
+            _borrowerRepo.UpdateAddress(address);
         }
     }
 }

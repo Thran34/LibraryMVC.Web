@@ -30,20 +30,16 @@ namespace LibraryMVC.Infrastructure.Repositories
             var items = _context.Items.Where(i => i.TypeId == typeId);
             return items;
         }
-        public Item GetItemById(int itemId)
+        public IQueryable<Item> GetAllActiveItems()
         {
-            var item = _context.Items.FirstOrDefault(i => i.Id == itemId);
+            return _context.Items.Where(p => p.IsActive);
+        }
+        public Item GetItem(int TypeId)
+        {
+            var item = _context.Items.FirstOrDefault(i => i.Id == TypeId);
             return item;
         }
-        public IQueryable<Tag> GetAllTags()
-        {
-            var tags = _context.Tags;
-            return tags;
-        }
-        public IQueryable<Domain.Model.Type> GetAllTypes()
-        {
-            var types = _context.Types;
-            return types;
-        }
+
+
     }
 }

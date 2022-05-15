@@ -79,29 +79,21 @@ namespace LibraryMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    TypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Types",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Types", x => x.Id);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,7 +215,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BorrowerId = table.Column<int>(type: "int", nullable: true),
-                    TelNumber = table.Column<int>(type: "int", nullable: false),
+                    TelNumber = table.Column<int>(type: "int", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -281,50 +273,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                         name: "FK_ContactDetails_ContactDetailTypes_ContactDetailTypeId",
                         column: x => x.ContactDetailTypeId,
                         principalTable: "ContactDetailTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Items_Types_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "Types",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemTag",
-                columns: table => new
-                {
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemTag", x => new { x.ItemId, x.TagId });
-                    table.ForeignKey(
-                        name: "FK_ItemTag_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ItemTag_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -387,16 +335,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                 name: "IX_ContactDetails_ContactDetailTypeId",
                 table: "ContactDetails",
                 column: "ContactDetailTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_TypeId",
-                table: "Items",
-                column: "TypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemTag_TagId",
-                table: "ItemTag",
-                column: "TagId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -426,7 +364,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 name: "ContactDetails");
 
             migrationBuilder.DropTable(
-                name: "ItemTag");
+                name: "Items");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -439,15 +377,6 @@ namespace LibraryMVC.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ContactDetailTypes");
-
-            migrationBuilder.DropTable(
-                name: "Items");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "Types");
         }
     }
 }

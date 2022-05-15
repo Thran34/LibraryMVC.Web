@@ -1,0 +1,47 @@
+﻿@model LibraryMVC.Application.ViewModel.Item.ListItemForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="AddBook"><a1>Create New</a1><</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+             Id
+            </th>
+            <th>
+              Name
+            </th>
+            <th>
+             Genre
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+               <button>   @Html.ActionLink("Edit", "Edit", new { id= item.Id  }) </button> |
+               <button>   @Html.ActionLink("Details", "ViewBook", new { id= item.Id }) </button> |
+               <button>   @Html.ActionLink("Delete", "Delete", new { id= item.Id  })</button> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

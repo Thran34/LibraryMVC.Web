@@ -12,13 +12,12 @@ namespace LibraryMVC.Infrastructure
         public DbSet<Borrower> Borrowers { get; set; }
         public DbSet<BorrowerContactInformation> BorrowerContactInformations { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<ItemTag> ItemTag { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Domain.Model.Type> Types { get; set; }
+
 
         public Context(DbContextOptions options) : base(options)
         {
         }
+        /*
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -35,6 +34,8 @@ namespace LibraryMVC.Infrastructure
                 .HasOne<Tag>(it => it.Tag)
                 .WithMany(t => t.ItemTags)
                 .HasForeignKey(it => it.TagId);
-        }
+            
+    }
+        */
     }
 }

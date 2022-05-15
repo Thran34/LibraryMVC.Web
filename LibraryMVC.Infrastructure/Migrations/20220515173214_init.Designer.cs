@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220515113243_init")]
+    [Migration("20220515173214_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TelNumber")
+                    b.Property<int?>("TelNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("ZipCode")
@@ -176,6 +176,21 @@ namespace LibraryMVC.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("AuthorLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -185,58 +200,7 @@ namespace LibraryMVC.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
-
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.ItemTag", b =>
-                {
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("ItemTag");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Type", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Types");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -480,36 +444,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.Navigation("ContactDetailType");
                 });
 
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Item", b =>
-                {
-                    b.HasOne("LibraryMVC.Domain.Model.Type", "Type")
-                        .WithMany("Items")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Type");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.ItemTag", b =>
-                {
-                    b.HasOne("LibraryMVC.Domain.Model.Item", "Item")
-                        .WithMany("ItemTags")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LibraryMVC.Domain.Model.Tag", "Tag")
-                        .WithMany("ItemTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Tag");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -566,21 +500,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("BorrowerContactInformation");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Item", b =>
-                {
-                    b.Navigation("ItemTags");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Tag", b =>
-                {
-                    b.Navigation("ItemTags");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.Type", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

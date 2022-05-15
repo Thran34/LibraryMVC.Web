@@ -5,9 +5,11 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Genre { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorLastName { get; set; }
+        public bool IsActive { get; set; } = true;
         public int TypeId { get; set; }
-        public virtual Type Type { get; set; }
 
-        public virtual ICollection<ItemTag> ItemTags { get; set; }
     }
 }

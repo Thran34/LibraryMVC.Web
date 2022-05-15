@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryMVC.Controllers
 {
     /*
-     uzupełnić listę detali
+    albo połączyć id adresu i id pożyczającego w jedno
+    albo sprawić by przycisk przekazywał id adresu a nie id pożyczającego 
+
      stworzyć model, kontroler oraz serwis i repo dla ksiązek
      utworzyc zależności między ksiązkami i pożyczającymi 
        (kto jaka ksiązka, ile czasu pozostało czy po terminie, kary za przedłużenie )

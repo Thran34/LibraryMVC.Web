@@ -59,6 +59,7 @@ namespace LibraryMVC.Application.Services
             borrowerVm.Id = borrower.Id;
             borrowerVm.ParentFullName = borrower.ParentName + " " + borrower.ParentLastName;
             borrowerVm.Addresses = new List<AddressForListVm>();
+
             foreach (var address in borrower.Addresses)
             {
                 var add = new AddressForListVm()

@@ -6,9 +6,9 @@ namespace LibraryMVC.Domain.Interfaces
     {
         void DeleteItem(int itemId);
         int AddItem(Item item);
+        IQueryable<Item> GetAllActiveItems();
         IQueryable<Item> GetItemsByTypeId(int typeId);
-        Item GetItemById(int itemId);
-        IQueryable<Tag> GetAllTags();
-        IQueryable<Domain.Model.Type> GetAllTypes();
+        Item GetItem(int TypeId);
+
     }
 }

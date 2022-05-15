@@ -42,7 +42,6 @@ namespace LibraryMVC.Infrastructure.Repositories
             _context.Entry(address).Property("City").IsModified = true;
             _context.Entry(address).Property("Country").IsModified = true;
             _context.Entry(address).Property("Street").IsModified = true;
-            _context.Entry(address).Property("BorrowerId").IsModified = true;
             _context.Entry(address).Property("Email").IsModified = true;
             _context.Entry(address).Property("TelNumber").IsModified = true;
             _context.SaveChanges();

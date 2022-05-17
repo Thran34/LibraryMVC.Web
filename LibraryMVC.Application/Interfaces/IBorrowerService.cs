@@ -13,5 +13,7 @@ namespace LibraryMVC.Application.Interfaces
         void UpdateBorrower(NewBorrowerVm model);
         NewAddresVm GetAddressForEdit(int id);
         void UpdateAddress(NewAddresVm model);
+
+        void BorrowBook();
     }
 }

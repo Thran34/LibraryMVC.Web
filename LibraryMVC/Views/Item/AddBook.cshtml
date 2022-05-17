@@ -38,9 +38,9 @@
                 <span asp-validation-for="AuthorLastName" class="text-danger"></span>
             </div>
                <div class="form-group">
-                <label asp-for="TypeId" class="control-label"></label>
-                <input asp-for="TypeId" class="form-control" />
-                <span asp-validation-for="TypeId" class="text-danger"></span>
+                <label asp-for="BorrowerId" class="control-label"></label>
+                <input asp-for="BorrowerId" class="form-control" />
+                <span asp-validation-for="BorrowerId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -51,7 +51,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+ <button class="btn btn-secondary"> <a asp-action="Index">Back to List</a></button>
 </div>
 
 @section Scripts {

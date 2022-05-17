@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using LibraryMVC.Application.Interfaces;
 using LibraryMVC.Application.ViewModel.Borrower;
+using LibraryMVC.Application.ViewModel.Item;
 using LibraryMVC.Domain.Interfaces;
 using LibraryMVC.Domain.Model;
 
@@ -59,12 +60,11 @@ namespace LibraryMVC.Application.Services
             borrowerVm.Id = borrower.Id;
             borrowerVm.ParentFullName = borrower.ParentName + " " + borrower.ParentLastName;
             borrowerVm.Addresses = new List<AddressForListVm>();
-
+            borrowerVm.Books = new List<ItemForListVm>();
             foreach (var address in borrower.Addresses)
             {
                 var add = new AddressForListVm()
                 {
-                    Id = address.Id,
                     City = address.City,
                     Country = address.Country,
                     Street = address.Street,
@@ -73,6 +73,17 @@ namespace LibraryMVC.Application.Services
 
                 };
                 borrowerVm.Addresses.Add(add);
+            }
+            foreach (var item in borrower.Books)
+            {
+                var book = new ItemForListVm()
+                {
+                    Genre = item.Genre,
+                    Name = item.Name,
+                    AuthorName = item.AuthorName,
+                    AuthorLastName = item.AuthorLastName,
+                };
+                borrowerVm.Books.Add(book);
             }
 
 
@@ -127,6 +138,10 @@ namespace LibraryMVC.Application.Services
         {
             var address = _mapper.Map<Address>(model);
             _borrowerRepo.UpdateAddress(address);
+        }
+        public void BorrowBook()
+        {
+
         }
     }
 }

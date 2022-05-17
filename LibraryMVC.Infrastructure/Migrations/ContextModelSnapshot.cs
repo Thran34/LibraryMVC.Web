@@ -24,11 +24,11 @@ namespace LibraryMVC.Infrastructure.Migrations
 
             modelBuilder.Entity("LibraryMVC.Domain.Model.Address", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"), 1L, 1);
 
                     b.Property<int?>("BorrowerId")
                         .HasColumnType("int");
@@ -58,7 +58,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AddressId");
 
                     b.HasIndex("BorrowerId");
 
@@ -122,50 +122,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.ToTable("BorrowerContactInformations");
                 });
 
-            modelBuilder.Entity("LibraryMVC.Domain.Model.ContactDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BorrowerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ContactDetailInformation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContactDetailTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BorrowerId");
-
-                    b.HasIndex("ContactDetailTypeId");
-
-                    b.ToTable("ContactDetails");
-                });
-
-            modelBuilder.Entity("LibraryMVC.Domain.Model.ContactDetailType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactDetailTypes");
-                });
-
             modelBuilder.Entity("LibraryMVC.Domain.Model.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -182,6 +138,12 @@ namespace LibraryMVC.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("BorrowerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeadLine")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -193,10 +155,9 @@ namespace LibraryMVC.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("BorrowerId");
 
                     b.ToTable("Items");
                 });
@@ -423,23 +384,15 @@ namespace LibraryMVC.Infrastructure.Migrations
                     b.Navigation("Borrower");
                 });
 
-            modelBuilder.Entity("LibraryMVC.Domain.Model.ContactDetail", b =>
+            modelBuilder.Entity("LibraryMVC.Domain.Model.Item", b =>
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("BorrowerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LibraryMVC.Domain.Model.ContactDetailType", "ContactDetailType")
-                        .WithMany()
-                        .HasForeignKey("ContactDetailTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Borrower");
-
-                    b.Navigation("ContactDetailType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -496,6 +449,8 @@ namespace LibraryMVC.Infrastructure.Migrations
             modelBuilder.Entity("LibraryMVC.Domain.Model.Borrower", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Books");
 
                     b.Navigation("BorrowerContactInformation");
                 });

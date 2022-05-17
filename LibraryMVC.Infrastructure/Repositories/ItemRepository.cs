@@ -25,11 +25,7 @@ namespace LibraryMVC.Infrastructure.Repositories
             _context.SaveChanges();
             return item.Id;
         }
-        public IQueryable<Item> GetItemsByTypeId(int typeId)
-        {
-            var items = _context.Items.Where(i => i.TypeId == typeId);
-            return items;
-        }
+
         public IQueryable<Item> GetAllActiveItems()
         {
             return _context.Items.Where(p => p.IsActive);

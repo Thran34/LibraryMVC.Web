@@ -16,9 +16,11 @@ namespace LibraryMVC.Controllers
     public class BorrowerController : Controller
     {
         private readonly IBorrowerService _borService;
-        public BorrowerController(IBorrowerService borService)
+        private readonly IItemService _itemService;
+        public BorrowerController(IBorrowerService borService, IItemService itemService)
         {
             _borService = borService;
+            _itemService = itemService;
         }
         [HttpGet]
         public IActionResult Index()
@@ -77,7 +79,6 @@ namespace LibraryMVC.Controllers
             return View(new NewBorrowerVm());
         }
 
-
         [HttpPost]
         public IActionResult AddNewAddressForBorrower(NewAddresVm model)
         {
@@ -86,9 +87,12 @@ namespace LibraryMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddNewAddressForBorrower()
+        public IActionResult AddNewAddressForBorrower(int id)
         {
-            return View(new NewAddresVm());
+            return View(new NewAddresVm()
+            {
+                BorrowerId = id
+            });
         }
         [HttpGet]
         public IActionResult ViewBorrower(int id)
@@ -101,6 +105,12 @@ namespace LibraryMVC.Controllers
         {
             _borService.DeleteBorrower(id);
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult BorrowBook()
+        {
+            var book = _itemService.GetAllBooksForList(2, 1, "");
+            return View(book);
         }
     }
 }

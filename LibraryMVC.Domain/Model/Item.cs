@@ -9,7 +9,8 @@
         public string AuthorName { get; set; }
         public string AuthorLastName { get; set; }
         public bool IsActive { get; set; } = true;
-        public int TypeId { get; set; }
-
+        public int BorrowerId { get; set; }
+        public DateTime DeadLine { get; set; }
+        public Borrower? Borrower { get; set; }
     }
 }

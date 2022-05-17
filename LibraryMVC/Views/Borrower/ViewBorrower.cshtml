@@ -27,9 +27,6 @@
         <dd>
            @foreach(var addres in Model.Addresses)
             {
-
-            <dd>Id: @Html.DisplayFor(address=>addres.Id)</dd>
-
             <dd>City: @Html.DisplayFor(address=>addres.City)</dd>
 
             <dd>Street:  @Html.DisplayFor(address => addres.Street) </dd>
@@ -46,6 +43,6 @@
     </dl>
 </div>
 <div>
-   @Html.ActionLink("Edit", "Edit", new{/* id = Model.PrimaryKey */ })|
-  <a1 asp-action="Index">Back to List</a1>
+ <button class="btn btn-primary"> @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) </button>
+   <button class="btn btn-secondary"> <a asp-action="Index">Back to List</a></button>
 </div>

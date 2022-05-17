@@ -66,37 +66,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactDetailTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactDetailTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -206,7 +175,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 name: "Addresses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    AddressId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -220,7 +189,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.AddressId);
                     table.ForeignKey(
                         name: "FK_Addresses_Borrowers_BorrowerId",
                         column: x => x.BorrowerId,
@@ -251,28 +220,26 @@ namespace LibraryMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactDetails",
+                name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactDetailInformation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactDetailTypeId = table.Column<int>(type: "int", nullable: false),
-                    BorrowerId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    BorrowerId = table.Column<int>(type: "int", nullable: false),
+                    DeadLine = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContactDetails", x => x.Id);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ContactDetails_Borrowers_BorrowerId",
+                        name: "FK_Items_Borrowers_BorrowerId",
                         column: x => x.BorrowerId,
                         principalTable: "Borrowers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ContactDetails_ContactDetailTypes_ContactDetailTypeId",
-                        column: x => x.ContactDetailTypeId,
-                        principalTable: "ContactDetailTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -327,14 +294,9 @@ namespace LibraryMVC.Infrastructure.Migrations
                 column: "BorrowerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactDetails_BorrowerId",
-                table: "ContactDetails",
+                name: "IX_Items_BorrowerId",
+                table: "Items",
                 column: "BorrowerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContactDetails_ContactDetailTypeId",
-                table: "ContactDetails",
-                column: "ContactDetailTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -361,9 +323,6 @@ namespace LibraryMVC.Infrastructure.Migrations
                 name: "BorrowerContactInformations");
 
             migrationBuilder.DropTable(
-                name: "ContactDetails");
-
-            migrationBuilder.DropTable(
                 name: "Items");
 
             migrationBuilder.DropTable(
@@ -374,9 +333,6 @@ namespace LibraryMVC.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Borrowers");
-
-            migrationBuilder.DropTable(
-                name: "ContactDetailTypes");
         }
     }
 }

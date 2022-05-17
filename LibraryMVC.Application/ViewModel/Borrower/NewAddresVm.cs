@@ -6,7 +6,7 @@ namespace LibraryMVC.Application.ViewModel.Borrower
 {
     public class NewAddresVm : IMapFrom<LibraryMVC.Domain.Model.Address>
     {
-        public int Id { get; set; }
+        public int AddressId { get; set; }
         public string Street { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
@@ -21,7 +21,7 @@ namespace LibraryMVC.Application.ViewModel.Borrower
         {
             public NewAddressValidation()
             {
-                RuleFor(x => x.Id).NotNull();
+
                 RuleFor(x => x.Street).Length(1, 20);
                 RuleFor(x => x.Country).Length(1, 20);
                 RuleFor(x => x.City).Length(1, 20);

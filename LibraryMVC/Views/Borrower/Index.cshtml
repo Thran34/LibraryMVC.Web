@@ -15,7 +15,7 @@
     </div>
     <div class ="row">
 <table class="table">
-    <thead>
+    <thead class="table-primary">
         <tr>
             <th>
                 Id
@@ -42,11 +42,13 @@
                 @Html.DisplayFor(modelItem=>item.LastName)
             </td>
             <td>
-              <button> @Html.ActionLink("Edit", "EditBorrower", new {  id=item.Id })</button> |
-               <button> @Html.ActionLink("Details", "ViewBorrower", new { id=item.Id  })</button> |
-               <button>@Html.ActionLink("Delete", "Delete", new { id=item.Id })</button> |
-              <button>  @Html.ActionLink("Edit address", "EditAddress", new { id = item.Id})</button> |
-              <button> @Html.ActionLink("Add address", "AddNewAddressForBorrower", new{ id=item.Id })</button>
+                <button class="btn btn-secondary"> @Html.ActionLink("Edit", "EditBorrower", new {  id=item.Id })</button> |
+               <button class="btn btn-info"> @Html.ActionLink("Details", "ViewBorrower", new { id=item.Id  })</button> |
+               <button class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id=item.Id })</button> |
+              <button class="btn btn-primary">  @Html.ActionLink("Edit address", "EditAddress", new { id = item.Id})</button> |
+              <button class="btn btn-success"> @Html.ActionLink("Add address", "AddNewAddressForBorrower", new{ id=item.Id })</button>
+              <button class="btn btn-secondary"> @Html.ActionLink("Borrow book", "BorrowBook", new{ /*id=item.Id*/ })</button>
+              <button class="btn btn-warning"> @Html.ActionLink("Return book", "ReturnBook", new{ id=item.Id })</button>
             </td>
         </tr>
 }

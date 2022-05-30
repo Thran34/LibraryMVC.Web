@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220516204454_init")]
+    [Migration("20220519183713_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,7 +140,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BorrowerId")
+                    b.Property<int?>("BorrowerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DeadLine")
@@ -390,9 +390,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
                         .WithMany("Books")
-                        .HasForeignKey("BorrowerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BorrowerId");
 
                     b.Navigation("Borrower");
                 });

@@ -25,7 +25,6 @@ namespace LibraryMVC.Infrastructure.Repositories
             _context.SaveChanges();
             return item.Id;
         }
-
         public IQueryable<Item> GetAllActiveItems()
         {
             return _context.Items.Where(p => p.IsActive);
@@ -35,7 +34,11 @@ namespace LibraryMVC.Infrastructure.Repositories
             var item = _context.Items.FirstOrDefault(i => i.Id == TypeId);
             return item;
         }
-
-
+        public void BorrowBook(Item item)
+        {
+            _context.Attach(item);
+            _context.Entry(item).Property("BorrowerId").IsModified = true;
+            _context.SaveChanges();
+        }
     }
 }

@@ -10,8 +10,6 @@ namespace LibraryMVC.Infrastructure
         public DbSet<Borrower> Borrowers { get; set; }
         public DbSet<BorrowerContactInformation> BorrowerContactInformations { get; set; }
         public DbSet<Item> Items { get; set; }
-
-
         public Context(DbContextOptions options) : base(options)
         {
         }

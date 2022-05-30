@@ -4,10 +4,12 @@
 }
 
 <h1>Borrowers</h1>
-
-<p>
-   <a asp-action="AddBorrower"><a1>Create New</a1></a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="AddBorrower"><a1>Create New</a1></a>
+    </p>
+}
 <form asp-action="Index" asp-controller="Borrower" method="post">
     <div class ="row">
         <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
@@ -47,8 +49,6 @@
                <button class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id=item.Id })</button> |
               <button class="btn btn-primary">  @Html.ActionLink("Edit address", "EditAddress", new { id = item.Id})</button> |
               <button class="btn btn-success"> @Html.ActionLink("Add address", "AddNewAddressForBorrower", new{ id=item.Id })</button>
-              <button class="btn btn-secondary"> @Html.ActionLink("Borrow book", "BorrowBook", new{ /*id=item.Id*/ })</button>
-              <button class="btn btn-warning"> @Html.ActionLink("Return book", "ReturnBook", new{ id=item.Id })</button>
             </td>
         </tr>
 }

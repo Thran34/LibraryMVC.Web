@@ -45,7 +45,8 @@
             <td>
               <button class="btn btn-primary"> @Html.ActionLink("Edit", "Edit", new { id= item.Id  }) </button> |
                 <button class="btn btn-info">  @Html.ActionLink("Details", "ViewBook", new { id= item.Id }) </button> |
-               <button class="btn btn-warning"> @Html.ActionLink("Delete", "Delete", new { id= item.Id  })</button> 
+               <button class="btn btn-warning"> @Html.ActionLink("Delete", "Delete", new { id= item.Id  })</button> |
+               <button class="btn btn-success"> @Html.ActionLink("Borrow", "BorrowBook", new { id= item.Id  })</button> 
             </td>
         </tr>
 }

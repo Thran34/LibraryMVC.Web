@@ -8,6 +8,6 @@ namespace LibraryMVC.Domain.Interfaces
         int AddItem(Item item);
         IQueryable<Item> GetAllActiveItems();
         Item GetItem(int TypeId);
-
+        public void BorrowBook(Item item);
     }
 }

@@ -10,6 +10,7 @@ namespace LibraryMVC.Infrastructure
         {
             services.AddTransient<IBorrowerRepository, BorrowerRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             return services;
         }
     }

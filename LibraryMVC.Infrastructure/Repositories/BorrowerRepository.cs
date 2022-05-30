@@ -11,7 +11,6 @@ namespace LibraryMVC.Infrastructure.Repositories
         {
             _context = context;
         }
-
         public int AddBorrower(Borrower borrower)
         {
             _context.Borrowers.Add(borrower);
@@ -22,12 +21,6 @@ namespace LibraryMVC.Infrastructure.Repositories
         {
             return _context.Borrowers.Where(p => p.IsActive);
         }
-        public int BorrowBook(Item item)
-        {
-            _context.Items.Add(item);
-            _context.SaveChanges();
-            return item.Id;
-        }
         public int AddAddress(Address address)
         {
             _context.Addresses.Add(address);
@@ -36,11 +29,15 @@ namespace LibraryMVC.Infrastructure.Repositories
         }
         public Borrower GetBorrower(int borrowerId)
         {
-            return _context.Borrowers.Include(x => x.Addresses).Include(x => x.BorrowerContactInformation).FirstOrDefault(p => p.Id == borrowerId);
+            return _context.Borrowers.Include(x => x.Books).Include(x => x.Addresses).Include(x => x.BorrowerContactInformation).FirstOrDefault(p => p.Id == borrowerId);
         }
         public Address GetAddress(int addressId)
         {
             return _context.Addresses.FirstOrDefault(p => p.BorrowerId == addressId);
+        }
+        public Item GetBook(int bookId)
+        {
+            return _context.Items.FirstOrDefault(p => p.BorrowerId == bookId);
         }
         public void UpdateAddress(Address address)
         {
@@ -52,7 +49,6 @@ namespace LibraryMVC.Infrastructure.Repositories
             _context.Entry(address).Property("TelNumber").IsModified = true;
 
             _context.SaveChanges();
-
         }
         public void UpdateBorrower(Borrower borrower)
         {

@@ -36,9 +36,21 @@
             <dd>Email: @Html.DisplayFor(address => addres.Email)</dd>
 
             <dd>Phone number: @Html.DisplayFor(address => addres.TelNumber)</dd>
-
             }
        </dd>
+       <dd>
+           <dt class="col-sm-2">
+               @Html.DisplayNameFor(model=>model.Books)
+           </dt>
+       </dd>
+       <dd>
+            @foreach(var book in Model.Books)
+            {
+                <dd>Title: @Html.DisplayFor(item=>book.Name)</dd>
+                <dd>Genre: @Html.DisplayFor(item=>book.Genre)</dd>
+                <dd>Author Name: @Html.DisplayFor(item=>book.AuthorFullName)</dd>
+            }
+        </dd>
        </dt>
     </dl>
 </div>

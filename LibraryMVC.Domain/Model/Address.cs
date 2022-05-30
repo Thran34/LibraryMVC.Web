@@ -13,6 +13,5 @@
         public int? TelNumber { get; set; }
         public string Email { get; set; }
         public Borrower? Borrower { get; set; }
-
     }
 }

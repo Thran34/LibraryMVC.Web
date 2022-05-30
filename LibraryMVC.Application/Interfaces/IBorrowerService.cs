@@ -14,6 +14,5 @@ namespace LibraryMVC.Application.Interfaces
         NewAddresVm GetAddressForEdit(int id);
         void UpdateAddress(NewAddresVm model);
 
-        void BorrowBook();
     }
 }

@@ -21,7 +21,6 @@ namespace LibraryMVC.Application.ViewModel.Borrower
         {
             public NewAddressValidation()
             {
-
                 RuleFor(x => x.Street).Length(1, 20);
                 RuleFor(x => x.Country).Length(1, 20);
                 RuleFor(x => x.City).Length(1, 20);

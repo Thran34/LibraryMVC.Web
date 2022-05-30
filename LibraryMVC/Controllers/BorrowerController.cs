@@ -1,5 +1,6 @@
 ﻿using LibraryMVC.Application.Interfaces;
 using LibraryMVC.Application.ViewModel.Borrower;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMVC.Controllers
@@ -13,23 +14,23 @@ namespace LibraryMVC.Controllers
        (kto jaka ksiązka, ile czasu pozostało czy po terminie, kary za przedłużenie )
      stworzyć ładny layout
      */
+
     public class BorrowerController : Controller
     {
         private readonly IBorrowerService _borService;
-        private readonly IItemService _itemService;
-        public BorrowerController(IBorrowerService borService, IItemService itemService)
+        public BorrowerController(IBorrowerService borService)
         {
             _borService = borService;
-            _itemService = itemService;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _borService.GetAllBorrowersForList(2, 1, "");
+            var model = _borService.GetAllBorrowersForList(10, 1, "");
             return View(model);
         }
+        [Authorize(Policy = "CanViewBorrowers")]
         [HttpPost]
-        public IActionResult Index(int pageSize, int pageNo, string searchString)
+        public IActionResult Index(int pageSize = 1, int pageNo = 1, string searchString = "")
         {
             if (pageNo == 0)
             {
@@ -48,18 +49,21 @@ namespace LibraryMVC.Controllers
             _borService.UpdateBorrower(model);
             return RedirectToAction("Index");
         }
+        [Authorize]
         [HttpGet]
         public IActionResult EditBorrower(int id)
         {
             var borrower = _borService.GetBorrowerForEdit(id);
             return View(borrower);
         }
+        [Authorize]
         [HttpPost]
         public IActionResult EditAddress(NewAddresVm model)
         {
             _borService.UpdateAddress(model);
             return RedirectToAction("Index");
         }
+        [Authorize]
         [HttpGet]
         public IActionResult EditAddress(int id)
         {
@@ -79,12 +83,14 @@ namespace LibraryMVC.Controllers
             return View(new NewBorrowerVm());
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddNewAddressForBorrower(NewAddresVm model)
         {
             _borService.AddAddress(model);
             return RedirectToAction("index");
         }
+        [Authorize]
 
         [HttpGet]
         public IActionResult AddNewAddressForBorrower(int id)
@@ -100,17 +106,11 @@ namespace LibraryMVC.Controllers
             var borrowerModel = _borService.GetBorrowerDetails(id);
             return View(borrowerModel);
         }
-
+        [Authorize]
         public IActionResult Delete(int id)
         {
             _borService.DeleteBorrower(id);
             return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult BorrowBook()
-        {
-            var book = _itemService.GetAllBooksForList(2, 1, "");
-            return View(book);
         }
     }
 }

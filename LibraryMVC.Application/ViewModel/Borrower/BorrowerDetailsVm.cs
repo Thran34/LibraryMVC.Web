@@ -18,12 +18,8 @@ namespace LibraryMVC.Application.ViewModel.Borrower
         {
             profile.CreateMap<LibraryMVC.Domain.Model.Borrower, BorrowerDetailsVm>()
                 .ForMember(s => s.ParentFullName, opt => opt.MapFrom(d => d.ParentName + " " + d.ParentLastName))
-                .ForMember(s => s.Addresses, opt => opt.MapFrom(d => d.Addresses));
-
-
-
-
-
+                .ForMember(s => s.Addresses, opt => opt.MapFrom(d => d.Addresses))
+                .ForMember(s => s.Books, opt => opt.MapFrom(d => d.Books));
         }
     }
 }

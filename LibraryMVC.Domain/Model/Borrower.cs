@@ -10,10 +10,6 @@
         public bool IsActive { get; set; } = true;
         public ICollection<BorrowerContactInformation> BorrowerContactInformation { get; set; }
         public ICollection<Address> Addresses { get; set; }
-
         public ICollection<Item> Books { get; set; }
-
-
-
     }
 }

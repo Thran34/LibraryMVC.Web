@@ -10,7 +10,6 @@ namespace LibraryMVC.Application.Services
 {
     public class BorrowerService : IBorrowerService
     {
-
         private readonly IBorrowerRepository _borrowerRepo;
         private readonly IMapper _mapper;
 
@@ -23,10 +22,7 @@ namespace LibraryMVC.Application.Services
         {
             var borrowers = _borrowerRepo.GetAllActiveBorrowers().Where(p => p.Name.StartsWith(searchString))
                .ProjectTo<BorrowerForListVm>(_mapper.ConfigurationProvider).ToList();
-
             var borrowersToShow = borrowers.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
-
-
             var borrowerList = new ListBorrowerForListVm()
             {
                 PageSize = pageSize,
@@ -52,7 +48,6 @@ namespace LibraryMVC.Application.Services
              result.Count = result.Borrowers.Count;
             return result;*/
         }
-
         public BorrowerDetailsVm GetBorrowerDetails(int borrowerId)
         {
             var borrower = _borrowerRepo.GetBorrower(borrowerId);
@@ -80,13 +75,11 @@ namespace LibraryMVC.Application.Services
                 {
                     Genre = item.Genre,
                     Name = item.Name,
-                    AuthorName = item.AuthorName,
-                    AuthorLastName = item.AuthorLastName,
+                    AuthorFullName = item.AuthorName + " " + item.AuthorLastName,
+
                 };
                 borrowerVm.Books.Add(book);
             }
-
-
             return borrowerVm;
         }
         /*
@@ -110,7 +103,6 @@ namespace LibraryMVC.Application.Services
             var id = _borrowerRepo.AddAddress(addr);
             return id;
         }
-
         public void DeleteBorrower(int id)
         {
             _borrowerRepo.DeleteBorrower(id);
@@ -121,7 +113,6 @@ namespace LibraryMVC.Application.Services
             var borrowerVm = _mapper.Map<NewBorrowerVm>(borrower);
             return borrowerVm;
         }
-
         public void UpdateBorrower(NewBorrowerVm model)
         {
             var borrower = _mapper.Map<Borrower>(model);
@@ -138,10 +129,6 @@ namespace LibraryMVC.Application.Services
         {
             var address = _mapper.Map<Address>(model);
             _borrowerRepo.UpdateAddress(address);
-        }
-        public void BorrowBook()
-        {
-
         }
     }
 }

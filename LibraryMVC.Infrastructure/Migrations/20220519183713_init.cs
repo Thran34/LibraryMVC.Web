@@ -230,7 +230,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                     AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    BorrowerId = table.Column<int>(type: "int", nullable: false),
+                    BorrowerId = table.Column<int>(type: "int", nullable: true),
                     DeadLine = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -240,8 +240,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                         name: "FK_Items_Borrowers_BorrowerId",
                         column: x => x.BorrowerId,
                         principalTable: "Borrowers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

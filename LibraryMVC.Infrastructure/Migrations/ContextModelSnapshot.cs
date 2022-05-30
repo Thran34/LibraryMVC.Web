@@ -138,7 +138,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BorrowerId")
+                    b.Property<int?>("BorrowerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DeadLine")
@@ -388,9 +388,7 @@ namespace LibraryMVC.Infrastructure.Migrations
                 {
                     b.HasOne("LibraryMVC.Domain.Model.Borrower", "Borrower")
                         .WithMany("Books")
-                        .HasForeignKey("BorrowerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BorrowerId");
 
                     b.Navigation("Borrower");
                 });

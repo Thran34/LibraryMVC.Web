@@ -11,6 +11,7 @@ namespace LibraryMVC.Application
         {
             services.AddTransient<IBorrowerService, BorrowerService>();
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

@@ -1,4 +1,5 @@
 ﻿using LibraryMVC.Application.ViewModel.Item;
+using LibraryMVC.Domain.Model;
 
 namespace LibraryMVC.Application.Interfaces
 {
@@ -8,5 +9,8 @@ namespace LibraryMVC.Application.Interfaces
         public void DeleteBook(int id);
         public ListItemForListVm GetAllBooksForList(int pageSize, int pageNo, string searchString);
         public ItemDetailsVm GetItemDetails(int itemId);
+        public Item GetBookForBorrow(int id);
+        public void BorrowBook(Item model);
+
     }
 }

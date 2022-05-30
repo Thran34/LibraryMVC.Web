@@ -1,0 +1,85 @@
+﻿@model LibraryMVC.Application.ViewModel.Borrower.ListBorrowerForListVm
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Borrowers</h1>
+
+<p>
+   <a asp-action="AddBorrower"><a1>Create New</a1></a>
+</p>
+<form asp-action="GetBorrowers" asp-controller="User" method="post">
+    <div class ="row">
+        <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
+        <input type="submit" value="Search" />
+    </div>
+    <div class ="row">
+<table class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>
+                Id
+            </th>
+             <th>
+                Name
+            </th>
+             <th>
+                LastName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Borrowers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.LastName)
+            </td>
+            <td>
+               
+              <button class="btn btn-success"> @Html.ActionLink("Select", "BorrowBook", new{ id=item.Id })</button>
+            </td>
+        </tr>
+}
+
+    </tbody>
+</table>
+</div>
+<div class ="row">
+    <table>
+        <tr>
+                @for(int i = 1; i< Math.Ceiling(Model.Count /(double)Model.PageSize); i++)
+                {
+                  <td>
+                        @if(i!= Model.CurrentPage)
+                        {
+                            <a href="javascript:PagerClick(@i)">@i</a>
+                        }
+                        else
+                        {
+                                 <span>@i</span>
+                        }
+                    </td>
+                }
+        </tr>
+    </table>
+    <input type="hidden" name="pageNo" id ="pageNo" />
+    <input type="hidden" name="pageSize" id="pageSize" value="2" />
+    </div>
+</form>
+@section Scripts
+{
+    <script type="text/javascript">
+        function PagerClick(index)
+        {
+            document.getElementById("pageNo").value=index;
+            document.forms[0].submit();
+        }
+        </script>
+}

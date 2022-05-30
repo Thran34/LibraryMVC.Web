@@ -12,8 +12,6 @@ namespace LibraryMVC.Application.ViewModel.Borrower
         public void Mapping(Profile profile)
         {
             profile.CreateMap<LibraryMVC.Domain.Model.Borrower, BorrowerForListVm>();
-
-
         }
     }
 }

@@ -15,9 +15,6 @@ namespace LibraryMVC.Application.ViewModel.Item
         {
             profile.CreateMap<LibraryMVC.Domain.Model.Item, ItemDetailsVm>()
                 .ForMember(s => s.AuthorFullName, opt => opt.MapFrom(d => d.AuthorName + " " + d.AuthorLastName));
-
-
         }
-
     }
 }

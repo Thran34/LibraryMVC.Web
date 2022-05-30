@@ -12,9 +12,6 @@ namespace LibraryMVC.Application.ViewModel.Borrower
         public string ParentName { get; set; }
         public string ParentLastName { get; set; }
 
-
-
-
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewBorrowerVm, LibraryMVC.Domain.Model.Borrower>().ReverseMap();

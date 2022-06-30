@@ -33,6 +33,7 @@ namespace LibraryMVC.Controllers
                 searchString = String.Empty;
             }
             var model = _borService.GetAllBorrowersForList(pageSize, pageNo, searchString);
+
             return View(model);
         }
         [HttpGet]
@@ -59,7 +60,10 @@ namespace LibraryMVC.Controllers
         public IActionResult BorrowBook(int id)
         {
             var borrower = _userService.GetBorrower(id);
+
             return View(borrower);
+
         }
+
     }
 }

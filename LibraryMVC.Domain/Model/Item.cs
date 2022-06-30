@@ -10,6 +10,6 @@
         public bool IsActive { get; set; } = true;
         public int? BorrowerId { get; set; }
         public DateTime DeadLine { get; set; }
-        public Borrower? Borrower { get; set; }
+
     }
 }
